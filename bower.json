@@ -1,0 +1,26 @@
+{
+  "name": "shop",
+  "version": "0.0.0",
+  "authors": [
+    "Roma Milushov <roma@milushov.ru>"
+  ],
+  "description": "web developer code challenge for backend softwared developer position at SwiftGift",
+  "main": "app.js",
+  "keywords": [
+    "coffee",
+    "js",
+    "swiftgift"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-css-only": "~3.3.1"
+  }
+}

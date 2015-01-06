@@ -1,0 +1,10 @@
+extends ../layout.jade
+
+block title
+  title #{truncate(product.name, 50)}
+
+block content
+  h1 #{truncate(product.name, 50)}
+
+  if product
+    include _product

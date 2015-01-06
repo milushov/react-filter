@@ -1,0 +1,8 @@
+compiled_frontend
+node_modules
+bower_components
+development.sqlite
+.sass-cache
+.sass-cache/*
+npm-debug.log
+.DS_Store
