@@ -30,7 +30,6 @@
     "gulp-livereload": "^2.1.1",
     "gulp-plumber": "^0.6.6",
     "gulp-ruby-sass": "^0.7.1",
-    "gulp-connect": "^2.0.6",
     "main-bower-files": "^2.4.0",
     "gulp-filter": "^1.0.2",
     "gulp-flatten": "0.0.4",
@@ -52,6 +51,14 @@
     "extend": "^2.0.0",
     "chai-http": "^1.0.0",
     "q": "^1.1.2",
-    "zombie": "^2.5.1"
+    "react": "^0.12.2",
+    "gulp-react": "^2.0.0",
+    "reactify": "^0.17.1",
+    "gulp-browserify": "^0.5.0",
+    "coffeeify": "^1.0.0",
+    "coffee-react": "^2.1.2",
+    "coffee-reactify": "^2.1.0",
+    "gulp-shell": "^0.2.11",
+    "browserify": "^8.0.3"
   }
 }

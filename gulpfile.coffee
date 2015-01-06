@@ -1,7 +1,7 @@
 gulp      = require 'gulp'
 $         = require('gulp-load-plugins')
   lazy:    true
-  pattern: '*' # just for main-bower-files
+  pattern: ['gulp-*', 'main-bower-files', 'del', 'run-sequence']
 
 pkg       = require './package.json'
 cur_date  = -> new Date().toLocaleString()
@@ -27,14 +27,15 @@ gulp.task 'js', ->
     .pipe $.plumber()
     .pipe $.header(banner())
     .pipe gulp.dest('app/public')
-    .pipe $.connect.reload()
     .pipe $.uglify()
     .pipe $.plumber()
     .pipe $.rename(suffix: '.min')
     .pipe gulp.dest('app/public')
+    .pipe $.livereload()
 
 gulp.task 'scripts', ->
-  $.runSequence 'coffee', 'js'
+  #$.runSequence 'coffee', 'js', 'browserify'
+  $.runSequence 'browserify'
 
 gulp.task 'styles', ->
   cssFilter  = $.filter '*.css'
@@ -48,7 +49,17 @@ gulp.task 'styles', ->
     .pipe $.minifyCss()
     .pipe $.rename(suffix: '.min')
     .pipe gulp.dest('app/public')
-    .pipe $.connect.reload()
+    .pipe $.livereload()
+
+gulp.task 'browserify', ->
+  gulp.src 'app/public/scripts/app.coffee'
+    .pipe $.plumber()
+    .pipe $.shell("
+      ./node_modules/browserify/bin/cmd.js \
+        -t ./node_modules/coffee-reactify/index.js \
+        app/public/scripts/app.coffee -o app/public/app.js")
+    .pipe $.plumber()
+    .pipe $.livereload()
 
 gulp.task 'build', ->
   $.runSequence  'libs'
@@ -109,7 +120,8 @@ gulp.task 'compile_libs', ->
     .pipe gulp.dest(dest_path + '/fonts')
 
 gulp.task 'default', ['clean'], ->
+  $.livereload.listen()
   gulp.start ['build']
-  gulp.watch 'app/public/scripts/*.coffee', ['scripts']
+  gulp.watch ['app/public/scripts/*.coffee', 'app/public/scripts/**/*.cjsx'], ['scripts']
   gulp.watch  'app/public/styles/*.sass', ['styles']
 

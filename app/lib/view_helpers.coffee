@@ -1,4 +1,4 @@
-exports.helpers = (req) ->
+module.exports = (req) ->
   return {
     truncate: (str, length) ->
       str.substr(0, length) + '..'

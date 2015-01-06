@@ -2,7 +2,7 @@ express     = require('express')
 db          = require('./models')
 extend      = require('extend')
 app         = module.exports = express()
-viewHelpers = require('./lib/view_helpers').helpers
+viewHelpers = require('./lib/view_helpers')
 
 app.use (req, res, next) ->
   extend(false, res.locals, viewHelpers(req)) && next()
