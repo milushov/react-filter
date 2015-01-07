@@ -60,6 +60,8 @@
     "coffee-reactify": "^2.1.0",
     "gulp-shell": "^0.2.11",
     "browserify": "^8.0.3",
-    "js2coffee": "^0.3.5"
+    "js2coffee": "^0.3.5",
+    "jquery-ui": "^1.10.5",
+    "jquery": "^2.1.3"
   }
 }

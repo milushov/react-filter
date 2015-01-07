@@ -1,5 +1,6 @@
 # @cjsx React.DOM
 
+$ = require('jquery')
 React  = require('react')
 Item = require('./item.cjsx')
 

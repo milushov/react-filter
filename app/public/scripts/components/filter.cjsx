@@ -10,7 +10,6 @@ Filter = React.createClass(
     @props.updateParams(name: 'categories', val: id)
 
   handleRange: (min, max) ->
-    console.info(min, max)
     @props.updateParams(name: 'price', val: {min: min, max: max})
 
   render: ->

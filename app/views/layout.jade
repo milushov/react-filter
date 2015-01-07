@@ -5,6 +5,7 @@ head
   block title
     title Shop
 
+  link(rel='stylesheet', href='//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css')
   link(rel='stylesheet', href='/vendor.css')
   link(rel='stylesheet', href='/app.css')
 
@@ -21,6 +22,6 @@ head
     unless isDev
       include common/counter
 
-  script(src='/vendor.js')
+  //-script(src='/vendor.js')
   script(src='/app.js')
 

@@ -1,5 +1,8 @@
 # @cjsx React.DOM
 
+$ = require('jquery')
+require('jquery-ui/slider')
+
 React  = require('react/addons')
 
 PriceRange = React.createClass(
@@ -8,24 +11,25 @@ PriceRange = React.createClass(
     range = $(@refs.range.getDOMNode())
     info = $(@refs.curPrice.getDOMNode())
 
-    range.on 'mousedown input', ((e) ->
-      info.html("$#{e.target.value}")
-    ).bind(@)
-
-    range.on 'change', ((e) ->
-      @props.handleRange(e.target.value)
-    ).bind(@)
+    range.slider(
+      range: yes
+      min: @props.min
+      max: @props.max
+      values: [@props.min*0.1, @props.max*0.8]
+      slide: ((e, ui) ->
+        info.html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ])
+      ).bind(@)
+      stop: ((e, ui) ->
+        @props.handleRange.apply(@, ui.values)
+      ).bind(@)
+    )
 
   # TODO remove listeners after unmount
 
 
   render: ->
     <nav>
-      <input type="range"
-        ref="range"
-        min={@props.min}
-        max={@props.max} />
-
+      <div ref="range"></div>
       <span ref="curPrice"></span>
     </nav>
 )

@@ -1,5 +1,6 @@
 # @cjsx React.DOM
 
+$ = require('jquery')
 React = require('react')
 Filter = require('./filter.cjsx')
 ItemList = require('./item_list.cjsx')
@@ -35,6 +36,9 @@ Feed = React.createClass(
         filterParams.categories.splice(ind, 1)
       else
         filterParams.categories.push(newParam.val)
+        filterParams.categories = filterParams.categories.sort()
+    else if newParam.name is 'price'
+      filterParams.price = newParam.val
 
     @setState(filterParams: filterParams)
     @loadData()
