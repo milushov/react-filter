@@ -4,6 +4,7 @@ $ = require('jquery')
 React = require('react')
 Filter = require('./filter.cjsx')
 ItemList = require('./item_list.cjsx')
+LoadMore = require('./load_more.cjsx')
 
 
 Feed = React.createClass(
@@ -40,6 +41,9 @@ Feed = React.createClass(
     else if newParam.name is 'price'
       filterParams.price = newParam.val
 
+    filterParams.offset = 0
+    filterParams.limit = 12
+
     @setState(filterParams: filterParams)
     @loadData()
 
@@ -48,6 +52,14 @@ Feed = React.createClass(
     $.get('/api/products', @state.filterParams).then ((data) ->
       @setState(items: data)
     ).bind(@)
+
+
+  loadMoar: ->
+    filterParams = @state.filterParams
+    filterParams.limit = filterParams.limit + 12
+    console.info(filterParams)
+    @setState(filterParams: filterParams)
+    @loadData()
 
 
   componentDidMount: ->
@@ -62,6 +74,7 @@ Feed = React.createClass(
         filterParams={@state.filterParams} />
 
       <ItemList items={@state.items}/>
+      <LoadMore handleClick={@loadMoar}/>
     </div>
 )
 
