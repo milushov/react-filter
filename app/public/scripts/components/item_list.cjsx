@@ -7,13 +7,15 @@ ItemList = React.createClass(
 
 
   makeRows: (items) ->
-    _items = []
-    while(items.length)
-      row = items.splice(0,4).map (el) ->
-        <Item item={el}/>
-      _items.push row
+    rows = []
+    _items = $.extend(true, [], items)
 
-    _items
+    while(_items.length)
+      row = _items.splice(0,4).map (el) ->
+        <Item item={el}/>
+      rows.push row
+
+    rows
 
 
   render: ->

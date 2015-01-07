@@ -3,6 +3,6 @@
 React = require('react')
 Feed = require('./components/feed.cjsx')
 
-React.render(
+window.feed = React.render(
   Feed(), document.getElementById('filter')
 )

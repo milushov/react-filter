@@ -59,6 +59,7 @@
     "coffee-react": "^2.1.2",
     "coffee-reactify": "^2.1.0",
     "gulp-shell": "^0.2.11",
-    "browserify": "^8.0.3"
+    "browserify": "^8.0.3",
+    "js2coffee": "^0.3.5"
   }
 }

@@ -100,6 +100,8 @@ async.series tasks, (err, data) ->
           for item in items
             do (item) ->
               tasks.push (callback) ->
+                # just for testing purpose
+                item.sex = item.name[0].charCodeAt(0)%2 is 0
                 db.Product.create(item).then (prod) ->
                   callback(null, prod)
 
