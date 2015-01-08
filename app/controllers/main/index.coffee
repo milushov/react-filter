@@ -1,2 +1,2 @@
 exports.index = (req, res) ->
-  res.redirect('/products')
+  res.redirect('/filter')
