@@ -17,6 +17,9 @@ module.exports =
       price:
         type: DataTypes.FLOAT
 
+      sex:
+        type: DataTypes.BOOLEAN
+
       merchantId:
         type: DataTypes.INTEGER
 
