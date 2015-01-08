@@ -186,11 +186,13 @@ Filter = React.createClass({
       "className": 'feed-filter'
     }, React.createElement("div", {
       "className": 'row'
+    }, React.createElement("div", {
+      "className": 'col-xs-12 col-sm-12'
     }, React.createElement(TabMenu, {
       "navigateToTab": this.navigateToTab,
       "tabs": this.props.categories,
       "activeTabIds": this.props.filterParams.categories
-    })), React.createElement("div", {
+    }))), React.createElement("div", {
       "className": 'row'
     }, React.createElement("div", {
       "className": 'col-xs-4 col-sm-4'
@@ -312,29 +314,37 @@ require('jquery-ui/slider');
 React = require('react/addons');
 
 PriceRange = React.createClass({
+  updateCurPrice: function(values) {
+    var info;
+    info = $(this.refs.curPrice.getDOMNode());
+    return info.html("$" + values[0] + " - $" + values[1]);
+  },
   componentDidMount: function() {
-    var info, range;
+    var info, initValues, range;
     range = $(this.refs.range.getDOMNode());
     info = $(this.refs.curPrice.getDOMNode());
-    return range.slider({
+    initValues = [this.props.min + 1000, this.props.max * 0.8];
+    range.slider({
       range: true,
       min: this.props.min,
       max: this.props.max,
-      values: [this.props.min * 0.1, this.props.max * 0.8],
+      values: initValues,
       slide: (function(e, ui) {
-        return info.html("$" + ui.values[0] + " - $" + ui.values[1]);
+        return this.updateCurPrice(ui.values);
       }).bind(this),
       stop: (function(e, ui) {
         return this.props.handleRange.apply(this, ui.values);
       }).bind(this)
     });
+    return this.updateCurPrice(initValues);
   },
   render: function() {
     return React.createElement("div", {
-      "class": 'price-range'
+      "className": 'price-range'
     }, React.createElement("div", {
       "ref": "range"
     }), React.createElement("span", {
+      "className": 'price-range-cur-price',
       "ref": "curPrice"
     }));
   }

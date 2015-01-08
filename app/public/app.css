@@ -1,5 +1,6 @@
 .feed-filter {
-  padding: 10px 25px;
+  padding: 10px;
+  background-color: rgba(228, 55, 173, 0.66);
 }
 
 .app-footer {
@@ -8,6 +9,15 @@
 
 .app {
   padding-top: 50px;
+}
+
+.price-range {
+  padding-left: -10px;
+}
+
+.price-range-cur-price {
+  margin: 5px 0 0 10px;
+  display: inline-block;
 }
 
 .product {

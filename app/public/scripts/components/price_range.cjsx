@@ -7,30 +7,40 @@ React  = require('react/addons')
 
 PriceRange = React.createClass(
 
+  updateCurPrice: (values) ->
+    info = $(@refs.curPrice.getDOMNode())
+    info.html("$#{values[0]} - $#{values[1]}")
+
+
   componentDidMount: ->
     range = $(@refs.range.getDOMNode())
     info = $(@refs.curPrice.getDOMNode())
+
+    initValues = [@props.min+1000, @props.max*0.8]
 
     range.slider(
       range: yes
       min: @props.min
       max: @props.max
-      values: [@props.min*0.1, @props.max*0.8]
+      values: initValues
       slide: ((e, ui) ->
-        info.html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ])
+        @updateCurPrice(ui.values)
       ).bind(@)
       stop: ((e, ui) ->
         @props.handleRange.apply(@, ui.values)
       ).bind(@)
     )
 
+    @updateCurPrice(initValues)
+
+
   # TODO remove listeners after unmount
 
 
   render: ->
-    <div class='price-range'>
+    <div className='price-range'>
       <div ref="range"></div>
-      <span ref="curPrice"></span>
+      <span className='price-range-cur-price' ref="curPrice"></span>
     </div>
 )
 

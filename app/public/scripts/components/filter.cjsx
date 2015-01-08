@@ -19,10 +19,12 @@ Filter = React.createClass(
   render: ->
     <nav className='feed-filter'>
       <div className='row'>
-        <TabMenu
-          navigateToTab={@navigateToTab}
-          tabs={@props.categories}
-          activeTabIds={@props.filterParams.categories} />
+        <div className='col-xs-12 col-sm-12'>
+          <TabMenu
+            navigateToTab={@navigateToTab}
+            tabs={@props.categories}
+            activeTabIds={@props.filterParams.categories} />
+        </div>
       </div>
 
       <div className='row'>
