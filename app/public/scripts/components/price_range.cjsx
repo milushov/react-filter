@@ -28,10 +28,10 @@ PriceRange = React.createClass(
 
 
   render: ->
-    <nav>
+    <div class='price-range'>
       <div ref="range"></div>
       <span ref="curPrice"></span>
-    </nav>
+    </div>
 )
 
 module.exports = PriceRange

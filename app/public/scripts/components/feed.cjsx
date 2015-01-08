@@ -18,11 +18,13 @@ Feed = React.createClass(
         {id: 3, name: 'cell phones'}
       ]
 
+      sexList: ['male', 'all', 'female']
+
       filterParams: {
         categories: [1]
         price: {min: 0, max: 10000}
         merchants: [1, 2]
-        sex: 1
+        sex: 'all' # male | female | all
         limit: 12
         offset: 0
       }
@@ -33,13 +35,23 @@ Feed = React.createClass(
     filterParams = @state.filterParams
 
     if newParam.name is 'categories'
-      if ~(ind = filterParams.categories.indexOf(newParam.val))
-        filterParams.categories.splice(ind, 1)
+      if typeof newParam.val is 'number'
+        if ~(ind = filterParams.categories.indexOf(newParam.val))
+          filterParams.categories.splice(ind, 1)
+        else
+          filterParams.categories.push(newParam.val)
+          filterParams.categories = filterParams.categories.sort()
       else
-        filterParams.categories.push(newParam.val)
-        filterParams.categories = filterParams.categories.sort()
+        # in case we disable/enable all tabs,
+        # ie passing array of ids
+        if filterParams.categories.length is newParam.val.length
+          filterParams.categories = []
+        else
+          filterParams.categories = newParam.val
     else if newParam.name is 'price'
       filterParams.price = newParam.val
+    else if newParam.name is 'sex'
+      filterParams.sex = newParam.val
 
     filterParams.offset = 0
     filterParams.limit = 12
@@ -70,6 +82,7 @@ Feed = React.createClass(
     <div className='feed'>
       <Filter
         categories={@state.categories}
+        sexList={@state.sexList}
         updateParams={@updateParams}
         filterParams={@state.filterParams} />
 

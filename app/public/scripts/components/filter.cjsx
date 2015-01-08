@@ -3,6 +3,7 @@
 React  = require('react')
 TabMenu = require('./tab_menu.cjsx')
 PriceRange = require('./price_range.cjsx')
+SexRadio = require('./sex_radio.cjsx')
 
 Filter = React.createClass(
 
@@ -12,16 +13,35 @@ Filter = React.createClass(
   handleRange: (min, max) ->
     @props.updateParams(name: 'price', val: {min: min, max: max})
 
+  handleRadio: (e) ->
+    @props.updateParams(name: 'sex', val: e.target.value)
+
   render: ->
-    <nav>
-      <TabMenu
-        navigateToTab={@navigateToTab}
-        tabs={@props.categories}
-        activeTabIds={@props.filterParams.categories} />
-      <PriceRange
-        min={@props.filterParams.price.min}
-        max={@props.filterParams.price.max}
-        handleRange={@handleRange}/>
+    <nav className='feed-filter'>
+      <div className='row'>
+        <TabMenu
+          navigateToTab={@navigateToTab}
+          tabs={@props.categories}
+          activeTabIds={@props.filterParams.categories} />
+      </div>
+
+      <div className='row'>
+        <div className='col-xs-4 col-sm-4'>
+          <PriceRange
+            min={@props.filterParams.price.min}
+            max={@props.filterParams.price.max}
+            handleRange={@handleRange}/>
+        </div>
+
+        <div className='col-xs-4 col-sm-4'>
+          <SexRadio
+            name='sex'
+            value={@props.filterParams.sex}
+            values={@props.sexList}
+            ref='sexGroup'
+            onChange={this.handleRadio} />
+        </div>
+      </div>
     </nav>
 )
 

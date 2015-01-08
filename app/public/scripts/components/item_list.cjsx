@@ -20,10 +20,15 @@ ItemList = React.createClass(
 
 
   render: ->
-    items = @props.items.map (el) ->
+    result = if @props.items.length
+      @makeRows(@props.items)
+    else
+      <h3 className='text-center'>
+        there are no products that match your search criteria :(
+      </h3>
 
-    <div className='item-list'>
-      {@makeRows(@props.items)}
+    <div className='item-list row'>
+      {result}
     </div>
 )
 

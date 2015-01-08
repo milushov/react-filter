@@ -2,6 +2,7 @@
 
 React  = require('react/addons')
 Tab = require('./tab.cjsx')
+TabCustom = require('./tab_custom.cjsx')
 
 TabMenu = React.createClass(
 
@@ -13,8 +14,12 @@ TabMenu = React.createClass(
         onSelect={@props.navigateToTab} />
     , @
 
-    <ul className="nav nav-pills">
+    <ul className="nav nav-pills tab-menu">
       {tabNodes}
+      <TabCustom
+        active={@props.activeTabIds.length == @props.tabs.length}
+        tabs={@props.tabs}
+        onSelect={@props.navigateToTab} />
     </ul>
 )
 

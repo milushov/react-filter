@@ -15,13 +15,20 @@ exports.api = {
     console.info('\n\n\n\n')
 
     # I know about sql injections, but fuck dat, because it's just an api for testing purposes
+    sexVal = if params.sex is 'male'
+      true
+    else if params.sex is 'female'
+      false
+    else
+      null
+
     db.Product.findAll(
       where:
         merchantId: params.merchants,
         price:
-          gte: params.price.min
-          lte: params.price.max
-        #sex: params.sex
+          gte: params.price?.min
+          lte: params.price?.max
+        sex: sexVal
 
       limit: params.limit
       offset: params.offset

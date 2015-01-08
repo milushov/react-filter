@@ -6,9 +6,11 @@ React  = require('react')
 LoadMore = React.createClass(
 
   render: ->
-    <a
-      className='btn btn-default btn-large'
-      onClick={@props.handleClick}>load more</a>
+    <div className='row text-center'>
+      <a
+        className='btn btn-primary btn-large'
+        onClick={@props.handleClick}>load more</a>
+    </div>
 )
 
 module.exports = LoadMore

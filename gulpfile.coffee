@@ -39,7 +39,7 @@ gulp.task 'scripts', ->
 
 gulp.task 'styles', ->
   cssFilter  = $.filter '*.css'
-  gulp.src 'app/public/styles/*.sass'
+  gulp.src 'app/public/styles/*.{sass,scss}'
     .pipe $.rubySass(style: 'expanded', 'sourcemap=none': true, precision: 2)
     .pipe $.plumber()
     .pipe cssFilter
@@ -123,5 +123,5 @@ gulp.task 'default', ['clean'], ->
   $.livereload.listen()
   gulp.start ['build']
   gulp.watch ['app/public/scripts/*.coffee', 'app/public/scripts/**/*.cjsx'], ['scripts']
-  gulp.watch  'app/public/styles/*.sass', ['styles']
+  gulp.watch 'app/public/styles/*.{sass,scss}', ['styles']
 
