@@ -65,18 +65,19 @@ Feed = React.createClass({
         }
       ],
       sexList: ['male', 'all', 'female'],
-      filterParams: {
-        categories: [1],
-        price: {
-          min: 0,
-          max: 10000
-        },
-        merchants: [1, 2],
-        sex: 'all',
-        limit: 12,
-        offset: 0
-      }
+      filterParams: $.extend(true, {}, this.filterParams)
     };
+  },
+  filterParams: {
+    categories: [1],
+    price: {
+      min: 0,
+      max: 10000
+    },
+    merchants: [1, 2],
+    sex: 'all',
+    limit: 12,
+    offset: 0
   },
   updateParams: function(newParam) {
     var filterParams, ind;
@@ -128,6 +129,12 @@ Feed = React.createClass({
   componentDidMount: function() {
     return this.loadData();
   },
+  resetFilterParams: function() {
+    this.setState({
+      filterParams: this.filterParams
+    });
+    return this.loadData();
+  },
   render: function() {
     return React.createElement("div", {
       "className": 'feed'
@@ -135,7 +142,8 @@ Feed = React.createClass({
       "categories": this.state.categories,
       "sexList": this.state.sexList,
       "updateParams": this.updateParams,
-      "filterParams": this.state.filterParams
+      "filterParams": this.state.filterParams,
+      "resetFilter": this.resetFilterParams
     }), React.createElement(ItemList, {
       "items": this.state.items
     }), React.createElement(LoadMore, {
@@ -208,7 +216,12 @@ Filter = React.createClass({
       "values": this.props.sexList,
       "ref": 'sexGroup',
       "onChange": this.handleRadio
-    }))));
+    })), React.createElement("div", {
+      "className": 'col-xs-4 col-sm-4'
+    }, React.createElement("a", {
+      "onClick": this.props.resetFilter,
+      "className": 'btn btn-danger feed-filter-reset'
+    }, "Reset filter"))));
   }
 });
 

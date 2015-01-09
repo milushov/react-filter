@@ -4,6 +4,11 @@
   padding-bottom: 0;
 }
 
+.feed-filter-reset {
+  float: right;
+  outline: none;
+}
+
 .app-footer {
   margin-top: 20px;
   padding: 10px;

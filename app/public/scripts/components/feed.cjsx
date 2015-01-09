@@ -9,6 +9,7 @@ LoadMore = require('./load_more.cjsx')
 
 Feed = React.createClass(
   getInitialState: ->
+
     return(
       items: []
 
@@ -20,15 +21,18 @@ Feed = React.createClass(
 
       sexList: ['male', 'all', 'female']
 
-      filterParams: {
-        categories: [1]
-        price: {min: 0, max: 10000}
-        merchants: [1, 2]
-        sex: 'all' # male | female | all
-        limit: 12
-        offset: 0
-      }
+      filterParams: $.extend(true, {}, @filterParams)
     )
+
+  # default params
+  filterParams: {
+    categories: [1]
+    price: {min: 0, max: 10000}
+    merchants: [1, 2]
+    sex: 'all' # male | female | all
+    limit: 12
+    offset: 0
+  }
 
 
   updateParams: (newParam) ->
@@ -78,13 +82,19 @@ Feed = React.createClass(
     @loadData()
 
 
+  resetFilterParams: ->
+    @setState(filterParams: @filterParams)
+    @loadData()
+
+
   render: ->
     <div className='feed'>
       <Filter
         categories={@state.categories}
         sexList={@state.sexList}
         updateParams={@updateParams}
-        filterParams={@state.filterParams} />
+        filterParams={@state.filterParams}
+        resetFilter={@resetFilterParams}/>
 
       <ItemList items={@state.items}/>
       <LoadMore handleClick={@loadMoar}/>

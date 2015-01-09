@@ -43,6 +43,15 @@ Filter = React.createClass(
             ref='sexGroup'
             onChange={this.handleRadio} />
         </div>
+
+        <div className='col-xs-4 col-sm-4'>
+          <a
+            onClick={@props.resetFilter}
+            className='btn btn-danger feed-filter-reset'>
+            Reset filter
+          </a>
+        </div>
+
       </div>
     </nav>
 )
