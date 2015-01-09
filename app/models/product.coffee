@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) ->
     image: DataTypes.STRING
     name: DataTypes.STRING
     price: DataTypes.FLOAT
+    sex: DataTypes.BOOLEAN
     merchantId: DataTypes.INTEGER
   ,
     classMethods:
