@@ -101,7 +101,7 @@ async.series tasks, (err, data) ->
             do (item) ->
               tasks.push (callback) ->
                 # just for testing purpose
-                item.sex = item.name[0].charCodeAt(0)%2 is 0
+                item.sex = [true, false, null][(Math.random()*1e3).toFixed()%3]
                 db.Product.create(item).then (prod) ->
                   callback(null, prod)
 
