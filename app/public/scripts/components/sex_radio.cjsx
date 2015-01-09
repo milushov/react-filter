@@ -45,14 +45,16 @@ SexRadio = React.createClass(
 
   render: ->
     inputs = @props.values.map ((el) ->
-      <label for={el}>
+      <span>
         <input
           type='radio'
           id={el}
           value={el}
           onChange={@props.onChange}/>
-        {el}
-      </label>
+        <label htmlFor={el}>
+          {el}
+        </label>
+      </span>
     ).bind(@)
 
     <div className='sex-radio-form'>

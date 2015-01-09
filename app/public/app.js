@@ -412,14 +412,14 @@ SexRadio = React.createClass({
   render: function() {
     var inputs;
     inputs = this.props.values.map((function(el) {
-      return React.createElement("label", {
-        "for": el
-      }, React.createElement("input", {
+      return React.createElement("span", null, React.createElement("input", {
         "type": 'radio',
         "id": el,
         "value": el,
         "onChange": this.props.onChange
-      }), el);
+      }), React.createElement("label", {
+        "htmlFor": el
+      }, el));
     }).bind(this));
     return React.createElement("div", {
       "className": 'sex-radio-form'

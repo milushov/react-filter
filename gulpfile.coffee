@@ -40,8 +40,8 @@ gulp.task 'scripts', ->
 gulp.task 'styles', ->
   cssFilter  = $.filter '*.css'
   gulp.src 'app/public/styles/*.{sass,scss}'
-    .pipe $.rubySass(style: 'expanded', 'sourcemap=none': true, precision: 2)
     .pipe $.plumber()
+    .pipe $.rubySass(style: 'expanded', 'sourcemap=none': true, precision: 2)
     .pipe cssFilter
     .pipe $.autoprefixer('last 3 version')
     .pipe $.concat('app.css')
