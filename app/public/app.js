@@ -36,7 +36,7 @@ window.feed = React.render(Feed(), document.getElementById('filter'));
 
 
 },{"./components/feed.cjsx":3,"react":180}],3:[function(require,module,exports){
-var $, Feed, Filter, ItemList, LoadMore, React;
+var $, Feed, Filter, ItemList, LoadMore, React, copy;
 
 $ = require('jquery');
 
@@ -47,6 +47,10 @@ Filter = require('./filter.cjsx');
 ItemList = require('./item_list.cjsx');
 
 LoadMore = require('./load_more.cjsx');
+
+copy = function(source) {
+  return $.extend(true, {}, source);
+};
 
 Feed = React.createClass({
   getInitialState: function() {
@@ -65,10 +69,10 @@ Feed = React.createClass({
         }
       ],
       sexList: ['male', 'all', 'female'],
-      filterParams: $.extend(true, {}, this.filterParams)
+      filterParams: copy(this.defaultFilterParams)
     };
   },
-  filterParams: {
+  defaultFilterParams: {
     categories: [1],
     price: {
       min: 0,
@@ -130,7 +134,7 @@ Feed = React.createClass({
   },
   resetFilterParams: function() {
     this.setState({
-      filterParams: this.filterParams
+      filterParams: copy(this.defaultFilterParams)
     });
     return this.loadData();
   },

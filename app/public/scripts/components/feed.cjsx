@@ -6,6 +6,8 @@ Filter = require('./filter.cjsx')
 ItemList = require('./item_list.cjsx')
 LoadMore = require('./load_more.cjsx')
 
+copy = (source) ->
+  $.extend(true, {}, source)
 
 Feed = React.createClass(
   getInitialState: ->
@@ -21,11 +23,11 @@ Feed = React.createClass(
 
       sexList: ['male', 'all', 'female']
 
-      filterParams: $.extend(true, {}, @filterParams)
+      filterParams: copy(@defaultFilterParams)
     )
 
   # default params
-  filterParams: {
+  defaultFilterParams: {
     categories: [1]
     price: {min: 0, max: 10000}
     merchants: [1, 2]
@@ -82,7 +84,7 @@ Feed = React.createClass(
 
 
   resetFilterParams: ->
-    @setState(filterParams: @filterParams)
+    @setState(filterParams: copy(@defaultFilterParams))
     @loadData()
 
 
