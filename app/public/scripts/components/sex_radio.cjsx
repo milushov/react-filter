@@ -43,6 +43,11 @@ SexRadio = React.createClass(
       i++
     null
 
+
+  componentWillReceiveProps: ->
+    @setRadioNames()
+    @setCheckedRadio()
+
   render: ->
     inputs = @props.values.map ((el) ->
       <span>

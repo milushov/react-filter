@@ -16,12 +16,12 @@ PriceRange = React.createClass(
     range = $(@refs.range.getDOMNode())
     info = $(@refs.curPrice.getDOMNode())
 
-    initValues = [@props.min+1000, @props.max*0.8]
+    initValues = [@props.min, @props.max]
 
     range.slider(
       range: yes
-      min: @props.min
-      max: @props.max
+      min: 0
+      max: 1e4
       values: initValues
       slide: ((e, ui) ->
         @updateCurPrice(ui.values)
@@ -35,6 +35,13 @@ PriceRange = React.createClass(
 
 
   # TODO remove listeners after unmount
+
+
+  componentWillReceiveProps: ->
+    console.info('yo, i\'m range', @props.min, @props.max)
+    range = $(@refs.range.getDOMNode())
+    range.slider('values', 0, @props.min)
+    range.slider('values', 1, @props.max)
 
 
   render: ->

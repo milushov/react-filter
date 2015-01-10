@@ -75,8 +75,8 @@ Feed = React.createClass({
   defaultFilterParams: {
     categories: [1],
     price: {
-      min: 0,
-      max: 10000
+      min: 1e3,
+      max: 7e3
     },
     merchants: [1, 2],
     sex: 'all',
@@ -108,10 +108,11 @@ Feed = React.createClass({
     }
     filterParams.offset = 0;
     filterParams.limit = 12;
-    this.setState({
+    return this.setState({
       filterParams: filterParams
+    }, function() {
+      return this.loadData();
     });
-    return this.loadData();
   },
   loadData: function() {
     return $.get('/api/products', this.state.filterParams).then((function(data) {
@@ -124,19 +125,21 @@ Feed = React.createClass({
     var filterParams;
     filterParams = this.state.filterParams;
     filterParams.limit = filterParams.limit + 12;
-    this.setState({
+    return this.setState({
       filterParams: filterParams
+    }, function() {
+      return this.loadData();
     });
-    return this.loadData();
   },
   componentDidMount: function() {
     return this.loadData();
   },
   resetFilterParams: function() {
-    this.setState({
+    return this.setState({
       filterParams: copy(this.defaultFilterParams)
+    }, function() {
+      return this.loadData();
     });
-    return this.loadData();
   },
   render: function() {
     return React.createElement("div", {
@@ -341,11 +344,11 @@ PriceRange = React.createClass({
     var info, initValues, range;
     range = $(this.refs.range.getDOMNode());
     info = $(this.refs.curPrice.getDOMNode());
-    initValues = [this.props.min + 1000, this.props.max * 0.8];
+    initValues = [this.props.min, this.props.max];
     range.slider({
       range: true,
-      min: this.props.min,
-      max: this.props.max,
+      min: 0,
+      max: 1e4,
       values: initValues,
       slide: (function(e, ui) {
         return this.updateCurPrice(ui.values);
@@ -355,6 +358,13 @@ PriceRange = React.createClass({
       }).bind(this)
     });
     return this.updateCurPrice(initValues);
+  },
+  componentWillReceiveProps: function() {
+    var range;
+    console.info('yo, i\'m range', this.props.min, this.props.max);
+    range = $(this.refs.range.getDOMNode());
+    range.slider('values', 0, this.props.min);
+    return range.slider('values', 1, this.props.max);
   },
   render: function() {
     return React.createElement("div", {
@@ -426,6 +436,10 @@ SexRadio = React.createClass({
       i++;
     }
     return null;
+  },
+  componentWillReceiveProps: function() {
+    this.setRadioNames();
+    return this.setCheckedRadio();
   },
   render: function() {
     var inputs;

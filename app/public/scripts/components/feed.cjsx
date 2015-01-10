@@ -29,7 +29,7 @@ Feed = React.createClass(
   # default params
   defaultFilterParams: {
     categories: [1]
-    price: {min: 0, max: 10000}
+    price: {min: 1e3, max: 7e3}
     merchants: [1, 2]
     sex: 'all' # male | female | all
     limit: 12
@@ -62,8 +62,8 @@ Feed = React.createClass(
     filterParams.offset = 0
     filterParams.limit = 12
 
-    @setState(filterParams: filterParams)
-    @loadData()
+    @setState filterParams: filterParams, ->
+      @loadData()
 
 
   loadData: ->
@@ -75,8 +75,8 @@ Feed = React.createClass(
   loadMoar: ->
     filterParams = @state.filterParams
     filterParams.limit = filterParams.limit + 12
-    @setState(filterParams: filterParams)
-    @loadData()
+    @setState filterParams: filterParams, ->
+      @loadData()
 
 
   componentDidMount: ->
@@ -84,8 +84,8 @@ Feed = React.createClass(
 
 
   resetFilterParams: ->
-    @setState(filterParams: copy(@defaultFilterParams))
-    @loadData()
+    @setState filterParams: copy(@defaultFilterParams), ->
+      @loadData()
 
 
   render: ->
