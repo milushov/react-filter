@@ -359,12 +359,12 @@ PriceRange = React.createClass({
     });
     return this.updateCurPrice(initValues);
   },
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(nextProps) {
     var range;
     console.info('yo, i\'m range', this.props.min, this.props.max);
     range = $(this.refs.range.getDOMNode());
-    range.slider('values', 0, this.props.min);
-    return range.slider('values', 1, this.props.max);
+    range.slider('values', 0, nextProps.min);
+    return range.slider('values', 1, nextProps.max);
   },
   render: function() {
     return React.createElement("div", {
@@ -409,7 +409,7 @@ SexRadio = React.createClass({
   getRadios: function() {
     return this.getDOMNode().querySelectorAll('input[type="radio"]');
   },
-  setCheckedRadio: function() {
+  setCheckedRadio: function(value) {
     var $radio, $radios, i, length, _results;
     $radios = this.getRadios();
     i = 0;
@@ -417,7 +417,7 @@ SexRadio = React.createClass({
     _results = [];
     while (i < length) {
       $radio = $radios[i];
-      if ($radio.value === this.props.value) {
+      if ($radio.value === (value || this.props.value)) {
         $radio.checked = true;
       }
       _results.push(i++);
@@ -437,9 +437,9 @@ SexRadio = React.createClass({
     }
     return null;
   },
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(nextProps) {
     this.setRadioNames();
-    return this.setCheckedRadio();
+    return this.setCheckedRadio(nextProps.value);
   },
   render: function() {
     var inputs;

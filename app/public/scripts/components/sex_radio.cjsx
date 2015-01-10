@@ -23,14 +23,14 @@ SexRadio = React.createClass(
   getRadios: ->
     @getDOMNode().querySelectorAll('input[type="radio"]')
 
-  setCheckedRadio: ->
+  setCheckedRadio: (value) ->
     $radios = @getRadios()
     i = 0
     length = $radios.length
 
     while i < length
       $radio = $radios[i]
-      $radio.checked = true  if $radio.value is @props.value
+      $radio.checked = true  if $radio.value is (value || @props.value)
       i++
 
   getCheckedValue: ->
@@ -44,9 +44,10 @@ SexRadio = React.createClass(
     null
 
 
-  componentWillReceiveProps: ->
+  componentWillReceiveProps: (nextProps) ->
     @setRadioNames()
-    @setCheckedRadio()
+    @setCheckedRadio(nextProps.value)
+
 
   render: ->
     inputs = @props.values.map ((el) ->

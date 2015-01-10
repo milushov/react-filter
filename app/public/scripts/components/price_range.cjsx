@@ -37,11 +37,11 @@ PriceRange = React.createClass(
   # TODO remove listeners after unmount
 
 
-  componentWillReceiveProps: ->
+  componentWillReceiveProps: (nextProps) ->
     console.info('yo, i\'m range', @props.min, @props.max)
     range = $(@refs.range.getDOMNode())
-    range.slider('values', 0, @props.min)
-    range.slider('values', 1, @props.max)
+    range.slider('values', 0, nextProps.min)
+    range.slider('values', 1, nextProps.max)
 
 
   render: ->
