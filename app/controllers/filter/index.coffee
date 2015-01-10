@@ -24,7 +24,7 @@ exports.api = {
 
     # issue with limit  https://github.com/sequelize/sequelize/issues/2886
     db.Product.findAll(
-      order: 'Product.id asc'
+      order: [['id', 'ASC']]
 
       limit: params.limit
       offset: params.offset
