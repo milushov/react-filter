@@ -22,7 +22,13 @@ exports.api = {
     else
       null
 
+    # issue with limit  https://github.com/sequelize/sequelize/issues/2886
     db.Product.findAll(
+      order: 'Product.id asc'
+
+      limit: params.limit
+      offset: params.offset
+
       where:
         merchantId: params.merchants,
         price:
@@ -30,19 +36,11 @@ exports.api = {
           lte: params.price?.max
         sex: sexVal
 
-      limit: params.limit
-      offset: params.offset
-
       include:
         model: db.Category
         where:
           id: params.categories
-
     ).then (items) ->
-      console.info('\n\n\n\n')
-      console.info(items[0])
-      console.info('\n\n\n\n')
-
       res.json items.map (el) ->
         id:    el.id
         name:  el.name

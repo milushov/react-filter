@@ -73,7 +73,6 @@ Feed = React.createClass(
   loadMoar: ->
     filterParams = @state.filterParams
     filterParams.limit = filterParams.limit + 12
-    console.info(filterParams)
     @setState(filterParams: filterParams)
     @loadData()
 

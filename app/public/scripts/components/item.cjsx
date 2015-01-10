@@ -19,7 +19,9 @@ Item = React.createClass(
       </div>
 
       <div className="row">
-        <span>{helpers.truncate(@props.item.name, 30)}</span>
+        <a href={"/products/#{@props.item.id}"}>
+          {helpers.truncate(@props.item.name, 30)}
+        </a>
       </div>
 
     </div>
